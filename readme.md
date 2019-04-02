@@ -2,8 +2,6 @@
 
 Geo is a spatial library that is made specfically for geographic data.
 
-[Wiki](https://github.com/sibartlett/Geo/wiki) | [Issues](https://github.com/sibartlett/Geo/issues)
-
 #### NuGet Packages
 
 __Geo__ - _[NuGet](https://nuget.org/packages/Geo) (.NET 4.0+, Windows 8, Windows Phone 8.0+, Silverlight 5, Xamarin Android and iOS)_
@@ -39,16 +37,6 @@ Features include:
 * Geomagnetism calculations
 	* IGRF / WMM models
 	* Declination, Inclination, Intensity, etc.
-
-__Geo.Raven__ - _[NuGet](https://nuget.org/packages/Geo.Raven) (.NET 4.0+)_
-
-Features include:
-* Define RavenDB indexes against Geo geometries
-* Use Geo geometries in RavenDB spatial queries
-
-__RavenDB JsonConverters for Geo__ - _[NuGet](https://www.nuget.org/packages/RavenDB.Client.Spatial.Geo) (.NET 4.0+, Silverlight 5)_
-
-RavenDB JsonConverters, which let you take advantage of the new spatial features in Raven 2.5.
 
 #### Useful Information
 
