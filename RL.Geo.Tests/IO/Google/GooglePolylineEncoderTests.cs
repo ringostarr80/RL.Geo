@@ -15,7 +15,7 @@ namespace RL.Geo.Tests.IO.Google
 
 			var result = new GooglePolylineEncoder().Encode(lineString);
 
-			Assert.AreEqual("_p~iF~ps|U_ulLnnqC_mqNvxq`@", result);
+			Assert.That(result, Is.EqualTo("_p~iF~ps|U_ulLnnqC_mqNvxq`@"));
 		}
 
 		[Test]
@@ -27,7 +27,7 @@ namespace RL.Geo.Tests.IO.Google
 
 			var result = new GooglePolylineEncoder().Decode("_p~iF~ps|U_ulLnnqC_mqNvxq`@");
 
-			Assert.AreEqual(lineString, result);
+			Assert.That(result, Is.EqualTo(lineString));
 		}
 	}
 }

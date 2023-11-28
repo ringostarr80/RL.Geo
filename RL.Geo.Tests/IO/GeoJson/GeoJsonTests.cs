@@ -14,8 +14,8 @@ namespace RL.Geo.Tests.IO.GeoJson
         {
             var reader = new GeoJsonReader();
             var geo = new Point(0, 0);
-            Assert.AreEqual(@"{""type"":""Point"",""coordinates"":[0,0]}", geo.ToGeoJson());
-            Assert.AreEqual(geo, reader.Read(geo.ToGeoJson()));
+            Assert.That(geo.ToGeoJson(), Is.EqualTo(@"{""type"":""Point"",""coordinates"":[0,0]}"));
+            Assert.That(reader.Read(geo.ToGeoJson()), Is.EqualTo(geo));
         }
 
         [Test]
@@ -23,9 +23,8 @@ namespace RL.Geo.Tests.IO.GeoJson
         {
             var reader = new GeoJsonReader();
             var geo = new LineString(new Coordinate(0, 0), new Coordinate(1, 1));
-            Assert.AreEqual(@"{""type"":""LineString"",""coordinates"":[[0,0],[1,1]]}",
-                geo.ToGeoJson());
-            Assert.AreEqual(geo, reader.Read(geo.ToGeoJson()));
+            Assert.That(geo.ToGeoJson(), Is.EqualTo(@"{""type"":""LineString"",""coordinates"":[[0,0],[1,1]]}"));
+            Assert.That(reader.Read(geo.ToGeoJson()), Is.EqualTo(geo));
         }
 
         [Test]
@@ -35,9 +34,8 @@ namespace RL.Geo.Tests.IO.GeoJson
             var geo =
                 new Polygon(new LinearRing(new Coordinate(0, 0), new Coordinate(1, 1), new Coordinate(2, 0),
                                            new Coordinate(0, 0)));
-            Assert.AreEqual(@"{""type"":""Polygon"",""coordinates"":[[[0,0],[1,1],[0,2],[0,0]]]}",
-                geo.ToGeoJson());
-            Assert.AreEqual(geo, reader.Read(geo.ToGeoJson()));
+            Assert.That(geo.ToGeoJson(), Is.EqualTo(@"{""type"":""Polygon"",""coordinates"":[[[0,0],[1,1],[0,2],[0,0]]]}"));
+            Assert.That(reader.Read(geo.ToGeoJson()), Is.EqualTo(geo));
         }
 
         [Test]
@@ -45,9 +43,8 @@ namespace RL.Geo.Tests.IO.GeoJson
         {
             var reader = new GeoJsonReader();
             var geo = new MultiPoint(new Point(0, 0));
-            Assert.AreEqual(@"{""type"":""MultiPoint"",""coordinates"":[[0,0]]}",
-                geo.ToGeoJson());
-            Assert.AreEqual(geo, reader.Read(geo.ToGeoJson()));
+            Assert.That(geo.ToGeoJson(), Is.EqualTo(@"{""type"":""MultiPoint"",""coordinates"":[[0,0]]}"));
+            Assert.That(reader.Read(geo.ToGeoJson()), Is.EqualTo(geo));
         }
 
         [Test]
@@ -55,9 +52,8 @@ namespace RL.Geo.Tests.IO.GeoJson
         {
             var reader = new GeoJsonReader();
             var geo = new MultiLineString(new LineString(new Coordinate(0, 0), new Coordinate(1, 1)));
-            Assert.AreEqual(@"{""type"":""MultiLineString"",""coordinates"":[[[0,0],[1,1]]]}",
-                geo.ToGeoJson());
-            Assert.AreEqual(geo, reader.Read(geo.ToGeoJson()));
+            Assert.That(geo.ToGeoJson(), Is.EqualTo(@"{""type"":""MultiLineString"",""coordinates"":[[[0,0],[1,1]]]}"));
+            Assert.That(reader.Read(geo.ToGeoJson()), Is.EqualTo(geo));
         }
 
         [Test]
@@ -68,9 +64,8 @@ namespace RL.Geo.Tests.IO.GeoJson
                 new MultiPolygon(
                     new Polygon(new LinearRing(new Coordinate(0, 0), new Coordinate(1, 1), new Coordinate(2, 0),
                                                new Coordinate(0, 0))));
-            Assert.AreEqual(@"{""type"":""MultiPolygon"",""coordinates"":[[[[0,0],[1,1],[0,2],[0,0]]]]}",
-                geo.ToGeoJson());
-            Assert.AreEqual(geo, reader.Read(geo.ToGeoJson()));
+            Assert.That(geo.ToGeoJson(), Is.EqualTo(@"{""type"":""MultiPolygon"",""coordinates"":[[[[0,0],[1,1],[0,2],[0,0]]]]}"));
+            Assert.That(reader.Read(geo.ToGeoJson()), Is.EqualTo(geo));
         }
 
         [Test]
@@ -78,35 +73,36 @@ namespace RL.Geo.Tests.IO.GeoJson
         {
             var reader = new GeoJsonReader();
             var geo = new GeometryCollection(new Point(0, 0), new Point(1, 0));
-            Assert.AreEqual(
-                @"{""type"":""GeometryCollection"",""geometries"":[{""type"":""Point"",""coordinates"":[0,0]},{""type"":""Point"",""coordinates"":[0,1]}]}",
-                geo.ToGeoJson());
-            Assert.AreEqual(geo, reader.Read(geo.ToGeoJson()));
+            Assert.That(geo.ToGeoJson(), Is.EqualTo(@"{""type"":""GeometryCollection"",""geometries"":[{""type"":""Point"",""coordinates"":[0,0]},{""type"":""Point"",""coordinates"":[0,1]}]}"));
+            Assert.That(reader.Read(geo.ToGeoJson()), Is.EqualTo(geo));
         }
 
         [Test]
         public void Feature()
         {
             var reader = new GeoJsonReader();
-            Assert.AreEqual(@"{""type"":""Feature"",""geometry"":{""type"":""Point"",""coordinates"":[0,0]},""properties"":null,""id"":""test-id""}",
-                new Feature(new Point(0, 0)) { Id = "test-id" }.ToGeoJson()
-                );
+            Assert.That(
+                new Feature(new Point(0, 0)) { Id = "test-id" }.ToGeoJson(),
+                Is.EqualTo(@"{""type"":""Feature"",""geometry"":{""type"":""Point"",""coordinates"":[0,0]},""properties"":null,""id"":""test-id""}")
+            );
 
-            Assert.AreEqual(@"{""type"":""Feature"",""geometry"":{""type"":""Point"",""coordinates"":[0,0]},""properties"":null,""id"":""test-id""}",
-                new Feature(new Point(0, 0), new Dictionary<string, object>()) { Id = "test-id" }.ToGeoJson()
-                );
+            Assert.That(
+                new Feature(new Point(0, 0), new Dictionary<string, object>()) { Id = "test-id" }.ToGeoJson(),
+                Is.EqualTo(@"{""type"":""Feature"",""geometry"":{""type"":""Point"",""coordinates"":[0,0]},""properties"":null,""id"":""test-id""}")
+            );
 
             var feature = new Feature(new Point(0, 0), new Dictionary<string, object>()
                                                            {
                                                                {"name", "test"}
                                                            }) {Id = "test-id"};
-            Assert.AreEqual(@"{""type"":""Feature"",""geometry"":{""type"":""Point"",""coordinates"":[0,0]},""properties"":{""name"":""test""},""id"":""test-id""}",
-                feature.ToGeoJson()
-                );
+            Assert.That(
+                feature.ToGeoJson(),
+                Is.EqualTo(@"{""type"":""Feature"",""geometry"":{""type"":""Point"",""coordinates"":[0,0]},""properties"":{""name"":""test""},""id"":""test-id""}")
+            );
 
             var feature2 = (Feature) reader.Read(feature.ToGeoJson());
-            Assert.AreEqual(feature.Id, feature2.Id);
-            Assert.AreEqual(feature.Geometry, feature2.Geometry);
+            Assert.That(feature2.Id, Is.EqualTo(feature.Id));
+            Assert.That(feature2.Geometry, Is.EqualTo(feature.Geometry));
         }
 
         [Test]
@@ -114,12 +110,13 @@ namespace RL.Geo.Tests.IO.GeoJson
         {
             var reader = new GeoJsonReader();
             var features = new FeatureCollection(new[] {new Feature(new Point(0, 0)) {Id = "test-id"}});
-            Assert.AreEqual(@"{""type"":""FeatureCollection"",""features"":[{""type"":""Feature"",""geometry"":{""type"":""Point"",""coordinates"":[0,0]},""properties"":null,""id"":""test-id""}]}",
-                features.ToGeoJson()
-                );
+            Assert.That(
+                features.ToGeoJson(),
+                Is.EqualTo(@"{""type"":""FeatureCollection"",""features"":[{""type"":""Feature"",""geometry"":{""type"":""Point"",""coordinates"":[0,0]},""properties"":null,""id"":""test-id""}]}")
+            );
 
             var features2 = (FeatureCollection)reader.Read(features.ToGeoJson());
-            Assert.AreEqual(features.Features.Single().Geometry, features2.Features.Single().Geometry);
+            Assert.That(features2.Features.Single().Geometry, Is.EqualTo(features.Features.Single().Geometry));
         }
     }
 }

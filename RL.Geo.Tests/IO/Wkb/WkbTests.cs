@@ -66,14 +66,14 @@ namespace RL.Geo.Tests.IO.Wkb
                 var wkb = wkbWriter.Write(geometry);
                 var wkbReader = new WkbReader();
                 var geometry2 = wkbReader.Read(wkb);
-                Assert.AreEqual(geometry, geometry2);
+                Assert.That(geometry2, Is.EqualTo(geometry));
             }
             {
                 var wkbWriter = new WkbWriter(new WkbWriterSettings { Encoding = WkbEncoding.BigEndian, Triangle = true });
                 var wkb = wkbWriter.Write(geometry);
                 var wkbReader = new WkbReader();
                 var geometry2 = wkbReader.Read(wkb);
-                Assert.AreEqual(geometry, geometry2);
+                Assert.That(geometry2, Is.EqualTo(geometry));
             }
         }
     }

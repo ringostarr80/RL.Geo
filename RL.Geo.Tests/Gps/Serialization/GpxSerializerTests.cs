@@ -32,7 +32,7 @@ namespace RL.Geo.Tests.Gps.Serialization
                     }
                     else
                     {
-                        Assert.True(false, fileInfo.Name);
+                        Assert.That(false, Is.True, fileInfo.Name);
                     }
                 }
             }
