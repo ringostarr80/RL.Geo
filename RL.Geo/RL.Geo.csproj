@@ -9,7 +9,7 @@
 
     <!-- nuget package metadata -->
     <PackageId>RL.Geo</PackageId>
-    <PackageLicenseExpression>LGPL-3.0</PackageLicenseExpression>
+    <PackageLicenseExpression>LGPL-3.0-only</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <Title>RL.Geo</Title>
     <Authors>Ringo Leese</Authors>
