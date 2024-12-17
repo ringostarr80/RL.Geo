@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>
@@ -16,7 +16,7 @@
     <Owners>Ringo Leese</Owners>
     <PackageProjectUrl>https://github.com/ringostarr80/RL.Geo</PackageProjectUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>changed target framework to .NET 6.0 - .NET 8.0</PackageReleaseNotes>
+    <PackageReleaseNotes>changed target framework to .NET 6.0 - .NET 9.0</PackageReleaseNotes>
     <Description>A geospatial library for .NET</Description>
     <PackageTags>geo;spatial;gps;coordinates;wgs84;geography;WKT;WKB;GeoJSON;GPX;IGC;NMEA;Garmin;PocketFMS;SkyDemon;magnetic;declination;variation;geomagnetism;igrf;wmm</PackageTags>
     <Copyright>Copyright 2023</Copyright>
@@ -31,6 +31,7 @@
     <DocumentationFile>bin/Release/net6.0/RL.Geo.xml</DocumentationFile>
     <DocumentationFile>bin/Release/net7.0/RL.Geo.xml</DocumentationFile>
     <DocumentationFile>bin/Release/net8.0/RL.Geo.xml</DocumentationFile>
+    <DocumentationFile>bin/Release/net9.0/RL.Geo.xml</DocumentationFile>
   </PropertyGroup>
 
 </Project>
