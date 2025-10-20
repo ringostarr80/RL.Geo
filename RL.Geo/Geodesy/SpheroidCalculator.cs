@@ -39,7 +39,7 @@ namespace RL.Geo.Geodesy
             //var r, tu, sf, cf, b, cu, su, sa, c2a, x, c, d, y, sy, cy, cz, e
             //            var glat2, glon2, baz, f
 
-            if ((Math.Abs(Math.Cos(lat1)) < EPS) && !(Math.Abs(Math.Sin(faz)) < EPS))
+            if ((Math.Abs(Math.Cos(lat1)) < EPS) && Math.Abs(Math.Sin(faz)) >= EPS)
             {
                 //alert("Only N-S courses are meaningful, starting at a pole!")
             }
@@ -49,7 +49,7 @@ namespace RL.Geo.Geodesy
             var sf = Math.Sin(faz);
             var cf = Math.Cos(faz);
             double b;
-            if (cf == 0)
+            if (Math.Abs(cf) < EPS)
             {
                 b = 0d;
             }
@@ -89,44 +89,44 @@ namespace RL.Geo.Geodesy
             b = cu*cy*cf - su*sy;
             c = r*Math.Sqrt(sa*sa + b*b);
             d = su*cy + cu*sy*cf;
-            var glat2 = modlat(Math.Atan2(d, c));
+            var glat2 = ModLat(Math.Atan2(d, c));
             c = cu*cy - su*sy*cf;
             x = Math.Atan2(sy*sf, c);
             c = ((-3 * c2a + 4) * Spheroid.Flattening + 4) * c2a * Spheroid.Flattening / 16;
             d = ((e*cy*c + cz)*sy*c + y)*sa;
-            var glon2 = modlon(lon1 + x - (1 - c) * d * Spheroid.Flattening); // fix date line problems 
-            var baz = modcrs(Math.Atan2(sa, b) + Math.PI);
+            var glon2 = ModLon(lon1 + x - (1 - c) * d * Spheroid.Flattening); // fix date line problems 
+            var baz = ModCrs(Math.Atan2(sa, b) + Math.PI);
 
             return new GeodeticLine(new Coordinate(point.GetCoordinate().Latitude, point.GetCoordinate().Longitude), new Coordinate(glat2.ToDegrees(), glon2.ToDegrees()),
                                     distance, heading, baz);
         }
         
-        private double mod(double x, double y)
+        private static double Mod(double x, double y)
         {
             return x - y * Math.Floor(x / y);
         }
 
-        private double modlon(double x)
+        private static double ModLon(double x)
         {
-            return mod(x + Math.PI, 2 * Math.PI) - Math.PI;
+            return Mod(x + Math.PI, 2 * Math.PI) - Math.PI;
         }
 
-        private double modcrs(double x)
+        private static double ModCrs(double x)
         {
-            return mod(x, 2 * Math.PI);
+            return Mod(x, 2 * Math.PI);
         }
 
-        private double modlat(double x)
+        private static double ModLat(double x)
         {
-            return mod(x + Math.PI / 2, 2 * Math.PI) - Math.PI / 2;
+            return Mod(x + Math.PI / 2, 2 * Math.PI) - Math.PI / 2;
         }
 
-        public GeodeticLine CalculateOrthodromicLine(IPosition position1, IPosition position2)
+        public GeodeticLine CalculateOrthodromicLine(IPosition point1, IPosition point2)
         {
-            var result = CalculateOrthodromicLineInternal(position1, position2);
+            var result = CalculateOrthodromicLineInternal(point1, point2);
             if (result == null)
                 return null;
-            return new GeodeticLine(position1.GetCoordinate(), position2.GetCoordinate(), result[0], result[1], result[2]);
+            return new GeodeticLine(point1.GetCoordinate(), point2.GetCoordinate(), result[0], result[1], result[2]);
         }
 
         private double[] CalculateOrthodromicLineInternal(IPosition position1, IPosition position2)
@@ -196,7 +196,6 @@ namespace RL.Geo.Geodesy
 
                 if (Math.Abs(x - x2) <= double.Epsilon)
                 {
-                    d = x = (x + d) / 2;
                     x2b = true;
                     continue;
                 }
@@ -239,14 +238,14 @@ namespace RL.Geo.Geodesy
             throw new ArithmeticException();
         }
 
-        public GeodeticLine CalculateLoxodromicLine(IPosition position1, IPosition position2)
+        public GeodeticLine CalculateLoxodromicLine(IPosition point1, IPosition point2)
         {
-            var point1 = position1.GetCoordinate();
-            var point2 = position2.GetCoordinate();
-            var lat1 = point1.Latitude;
-            var lon1 = point1.Longitude;
-            var lat2 = point2.Latitude;
-            var lon2 = point2.Longitude;
+            var pointCoordinate1 = point1.GetCoordinate();
+            var pointCoordinate2 = point2.GetCoordinate();
+            var lat1 = pointCoordinate1.Latitude;
+            var lon1 = pointCoordinate1.Longitude;
+            var lat2 = pointCoordinate2.Latitude;
+            var lon2 = pointCoordinate2.Longitude;
 
             if (Math.Abs(lat1 - lat2) < double.Epsilon && Math.Abs(lon1 - lon2) < double.Epsilon)
                 return null;
