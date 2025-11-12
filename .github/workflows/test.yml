@@ -17,7 +17,7 @@ jobs:
 
     strategy:
       matrix:
-        dotnet: [ '6.0', '7.0', '8.0', '9.0' ]
+        dotnet: [ '8.0', '9.0', '10.0' ]
 
     steps:
     - uses: actions/checkout@v5
@@ -25,10 +25,9 @@ jobs:
       uses: actions/setup-dotnet@d4c94342e560b34958eacfc5d055d21461ed1c5d # v5
       with:
         dotnet-version: |
-          6.0.x
-          7.0.x
           8.0.x
           9.0.x
+          10.0.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
