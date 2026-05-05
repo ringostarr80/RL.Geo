@@ -12,28 +12,28 @@ namespace RL.Geo.Tests.IO.Wkt
         [Test]
         public void Invalid_geometry_type()
         {
-            Assert.Throws<System.Runtime.Serialization.SerializationException>(() => {
+            Assert.Throws<System.Runtime.Serialization.SerializationException>((Action)(() => {
                 var reader = new WktReader();
                 reader.Read("SOMETHING EMPTY");
-            });
+            }));
         }
 
         [Test]
         public void Null_input_string_throws_argument_exception()
         {
-            Assert.Throws<ArgumentNullException>(() => {
+            Assert.Throws<ArgumentNullException>((Action)(() => {
                 var reader = new WktReader();
                 reader.Read((string) null);
-            });
+            }));
         }
 
         [Test]
         public void Null_input_stream_throws_argument_exception()
         {
-            Assert.Throws<ArgumentNullException>(() => {
+            Assert.Throws<ArgumentNullException>((Action)(() => {
                 var reader = new WktReader();
                 reader.Read((Stream)null);
-            });
+            }));
         }
 
         [Test]
