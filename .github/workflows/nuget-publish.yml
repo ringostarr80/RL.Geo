@@ -16,6 +16,7 @@ jobs:
   build:
     name: Build and publish NuGet package
     runs-on: ubuntu-latest
+    environment: release
     permissions:
       contents: read # checkout the repository
       id-token: write # request OIDC token for NuGet trusted publishing
